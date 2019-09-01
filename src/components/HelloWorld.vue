@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <button class="pure-button">A Pure Button</button>
+  </div>
 </template>
 
 <script lang="ts">
