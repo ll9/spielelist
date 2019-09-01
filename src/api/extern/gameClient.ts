@@ -6,7 +6,7 @@ const resource = 'games';
 export default {
   async search(val: string): Promise<AxiosResponse<any>> {
     return await client.post(`/${resource}`,
-      `fields name, popularity, cover.url;
+      `fields name, popularity, cover.url, url;
       search "${val}";`,
       { headers: { 'content-type': 'text/plain' } });
   },
