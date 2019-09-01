@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button class="pure-button">A Pure Button</button>
+    <form class="pure-form" @submit.prevent>
+      <input type="text" placeholder="suche"/>
+    </form>
   </div>
 </template>
 
@@ -9,8 +11,7 @@ import Vue from 'vue';
 
 export default Vue.extend({
   data: () => {
-    return {
-    };
+    return {};
   },
 });
 </script>
