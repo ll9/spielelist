@@ -3,7 +3,12 @@
 ## Project setup
 ```
 npm install
+npm i local-cors-proxy
 ```
+
+## Proxy
+
+Due to CORS Issues you will have to run `npm run proxy` before executing any other scripts
 
 ### Compiles and hot-reloads for development
 ```
