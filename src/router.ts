@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Search from './components/Search.vue';
+import Search from './components/Search/Search.vue';
 
 Vue.use(Router);
 
