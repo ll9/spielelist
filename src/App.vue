@@ -1,8 +1,20 @@
 <template>
   <div id="app">
+    <Menu />
     <router-view/>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import Menu from './views/Menu.vue';
+
+export default Vue.extend({
+  components: {
+    Menu,
+  },
+});
+</script>
 
 <style lang="scss">
 #app {
