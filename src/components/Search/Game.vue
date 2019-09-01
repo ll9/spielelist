@@ -23,6 +23,6 @@ export default Vue.extend({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .cover {
-  box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.75);
+  box-shadow: -1px -1px 2px 2px rgba(0,0,0,0.75);
 }
 </style>
