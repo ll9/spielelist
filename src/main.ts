@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 
 import './style.scss';
+import './styles/typography.css';
 
 Vue.config.productionTip = false;
 
