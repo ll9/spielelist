@@ -1,6 +1,9 @@
 # spielelist
 
 ## Project setup
+
+Copy `.env.development.local.dummy` to `.env.development.local` and enter your credentials there.
+
 ```
 npm install
 npm i local-cors-proxy

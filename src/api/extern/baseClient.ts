@@ -3,7 +3,7 @@ import axios from 'axios';
 const instance = axios.create({baseURL: 'http://localhost:8010/proxy'});
 
 instance.interceptors.request.use((conf) => {
-    conf.headers['user-key'] = '9c07fe47a184edfab6eb1ca1107443e8';
+    conf.headers['user-key'] = process.env.VUE_APP_API_KEY;
     return conf;
 });
 
