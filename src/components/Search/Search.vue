@@ -2,10 +2,10 @@
   <div>
     <form class="pure-form" @submit.prevent="submit">
       <input type="text" placeholder="suche" v-model="searchVal" />
-      <div class="container">
-        <Game v-for="game in games" :key="game.id" :game="game" />
-      </div>
     </form>
+    <div class="container">
+      <Game v-for="game in games" :key="game.id" :game="game" />
+    </div>
   </div>
 </template>
 
