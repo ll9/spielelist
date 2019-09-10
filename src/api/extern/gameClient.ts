@@ -10,4 +10,10 @@ export default {
       search "${val}";`,
       { headers: { 'content-type': 'text/plain' } });
   },
+  async listByIds(ids: number[]): Promise<AxiosResponse<any>> {
+    return await client.post(`/${resource}`,
+      `fields name, popularity, cover.url, url, first_release_date;
+      where id = (${ids.join(',')});`,
+      { headers: { 'content-type': 'text/plain' } });
+  },
 };
