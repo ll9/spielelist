@@ -1,14 +1,18 @@
 <template>
   <div>
     <div class="container">
-      <Game v-for="game in games" :key="game.id" :game="game" />
+      <Game 
+      v-for="game in games" 
+      :key="game.id" 
+      :game="game" 
+      @remove-game="removeGame" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Game from '../Search/Game.vue';
+import Game from './Game.vue';
 import externalContext from '../../api/extern/apiContext';
 import internalContext from '../../api/intern/apiContext';
 
@@ -16,7 +20,7 @@ export default Vue.extend({
   data: () => {
     return {
       searchVal: '',
-      games: [] as any,
+      games: [] as any[],
     };
   },
   mounted() {
@@ -34,6 +38,12 @@ export default Vue.extend({
       const gameRes = await externalContext.games.listByIds(listRes.data.map((e: any) => e.spielId));
 
       this.games = gameRes.data;
+    },
+    removeGame(id: number) {
+        const index = this.games.findIndex((g) => g.id === id);
+        if (index !== -1) {
+            this.games.splice(index, 1);
+        }
     },
   },
   components: {

@@ -10,4 +10,7 @@ export default {
   async list(): Promise<AxiosResponse<any>> {
     return await client.get(`/${resource}`);
   },
+  async remove(id: number): Promise<AxiosResponse<any>> {
+    return await client.delete(`/${resource}/${id}`);
+  },
 };
