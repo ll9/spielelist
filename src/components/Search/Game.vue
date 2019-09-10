@@ -9,7 +9,7 @@
       />
     </a>
     <div class="action-menu ml-2">
-      <button>
+      <button @click="addToList(game.id)">
         <i class="fa fa-plus-circle"></i>
       </button>
     </div>
@@ -18,9 +18,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Context from '../../api/intern/apiContext';
 
 export default Vue.extend({
   props: ['game'],
+  methods: {
+    async addToList(id: number) {
+      Context.listEintraege.add(id);
+    },
+  },
 });
 </script>
 
