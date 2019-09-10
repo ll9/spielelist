@@ -23,8 +23,10 @@ import Context from '../../api/intern/apiContext';
 export default Vue.extend({
   props: ['game'],
   methods: {
-    async addToList(id: number) {
-      Context.listEintraege.add(id);
+    addToList(id: number) {
+      Context.listEintraege.add(id)
+        .then((res) => alert('Wurde erfolgreich zur liste hinzugefügt'))
+        .catch((err) => alert(`Fehler: ${JSON.stringify(err.response.data)}`));
     },
   },
 });
