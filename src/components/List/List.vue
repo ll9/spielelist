@@ -1,18 +1,20 @@
 <template>
   <div>
-    <div class="container">
+    <div class="grid-container">
       <Game 
       v-for="game in games" 
       :key="game.id" 
       :game="game" 
       @remove-game="removeGame" />
     </div>
+    <UsersPanel />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import Game from './Game.vue';
+import UsersPanel from './UsersPanel.vue';
 import externalContext from '../../api/extern/apiContext';
 import internalContext from '../../api/intern/apiContext';
 
@@ -48,10 +50,16 @@ export default Vue.extend({
   },
   components: {
     Game,
+    UsersPanel,
   },
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border: 1px solid black;
+}
 </style>
