@@ -44,11 +44,12 @@ export default Vue.extend({
 
       this.games = gameRes.data;
     },
-    removeGame(id: number) {
+    async removeGame(id: number) {
       const index = this.games.findIndex((g) => g.id === id);
       if (index !== -1) {
         this.games.splice(index, 1);
       }
+      await internalContext.listEintraege.remove(id);
     },
   },
   components: {

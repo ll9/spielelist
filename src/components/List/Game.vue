@@ -18,13 +18,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Context from '../../api/intern/apiContext';
 
 export default Vue.extend({
   props: ['game'],
   methods: {
     async removeFromList(id: number) {
-      await Context.listEintraege.remove(id);
       this.$emit('remove-game', id);
     },
   },
