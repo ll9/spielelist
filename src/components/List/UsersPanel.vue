@@ -3,6 +3,14 @@
     <div v-for="user in users" :key="user.id">
       <p>{{user.name}}</p>
       <button @click="removeUser(user.id)">-</button>
+      <draggable
+        :list="user.games"
+        class="list-group grid-container"
+        ghost-class="ghost"
+        group="userpanel"
+      >
+        <Game v-for="game in user.games" :key="game.id" :game="game" />
+      </draggable>
     </div>
     <div v-if="users.length < 4">
       <button @click="addUser">+</button>
@@ -12,6 +20,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import draggable from 'vuedraggable';
+import Game from './Game.vue';
 
 export default Vue.extend({
   data: () => {
@@ -20,6 +30,7 @@ export default Vue.extend({
         {
           id: 1,
           name: 'Hans',
+          games: [],
         },
       ],
     };
@@ -28,17 +39,20 @@ export default Vue.extend({
     addUser() {
       const user = prompt('Username');
       if (user) {
-        this.users.push({ id: this.users.length + 1, name: user });
+        this.users.push({ id: this.users.length + 1, name: user, games: [] });
       }
     },
     removeUser(id: any) {
-        const index = this.users.findIndex((u) => u.id === id);
-        if (index !== -1) {
-            this.users.splice(index, 1);
-        }
+      const index = this.users.findIndex((u) => u.id === id);
+      if (index !== -1) {
+        this.users.splice(index, 1);
+      }
     },
   },
-  components: {},
+  components: {
+    draggable,
+    Game,
+  },
 });
 </script>
 
@@ -50,7 +64,7 @@ export default Vue.extend({
   border: 1px solid black;
 
   div {
-      border: 1px solid black;
+    border: 1px solid black;
   }
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
   <div>
     <div>
-      <draggable :list="games" class="list-group grid-container" ghost-class="ghost" group="l">
+      <draggable :list="games" class="list-group grid-container" ghost-class="ghost" 
+      :group="{name: 'userpanel', pull: 'clone'}">
         <Game v-for="game in games" :key="game.id" :game="game" @remove-game="removeGame" />
       </draggable>
     </div>
