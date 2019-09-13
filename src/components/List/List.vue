@@ -1,11 +1,9 @@
 <template>
   <div>
-    <div class="grid-container">
-      <Game 
-      v-for="game in games" 
-      :key="game.id" 
-      :game="game" 
-      @remove-game="removeGame" />
+    <div>
+      <draggable :list="games" class="list-group grid-container" ghost-class="ghost" group="l">
+        <Game v-for="game in games" :key="game.id" :game="game" @remove-game="removeGame" />
+      </draggable>
     </div>
     <UsersPanel />
   </div>
@@ -13,6 +11,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import draggable from 'vuedraggable';
+
 import Game from './Game.vue';
 import UsersPanel from './UsersPanel.vue';
 import externalContext from '../../api/extern/apiContext';
@@ -37,18 +37,21 @@ export default Vue.extend({
     },
     async loadData(val: string) {
       const listRes = await internalContext.listEintraege.list();
-      const gameRes = await externalContext.games.listByIds(listRes.data.map((e: any) => e.spielId));
+      const gameRes = await externalContext.games.listByIds(
+        listRes.data.map((e: any) => e.spielId),
+      );
 
       this.games = gameRes.data;
     },
     removeGame(id: number) {
-        const index = this.games.findIndex((g) => g.id === id);
-        if (index !== -1) {
-            this.games.splice(index, 1);
-        }
+      const index = this.games.findIndex((g) => g.id === id);
+      if (index !== -1) {
+        this.games.splice(index, 1);
+      }
     },
   },
   components: {
+    draggable,
     Game,
     UsersPanel,
   },
