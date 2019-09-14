@@ -9,6 +9,7 @@
         ghost-class="ghost"
         :group="{name: 'userpanel', pull: false }"
         :sort="false"
+        @add="onAdd($event, user.games)"
       >
         <Game
           v-for="game in user.games"
@@ -60,6 +61,13 @@ export default Vue.extend({
       const index = games.findIndex((g) => g.id === id);
       if (index !== -1) {
         games.splice(index, 1);
+      }
+    },
+    onAdd(evt: any, destination: any[]) {
+      const game = destination[evt.newIndex];
+      const count = destination.filter((g: any) => g.id === game.id).length;
+      if (count > 1) {
+        destination.splice(evt.index, 1);
       }
     },
   },
