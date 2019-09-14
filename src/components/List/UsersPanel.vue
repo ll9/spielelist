@@ -7,7 +7,8 @@
         :list="user.games"
         class="list-group user-items"
         ghost-class="ghost"
-        group="userpanel"
+        :group="{name: 'userpanel', pull: false }"
+        :sort="false"
       >
         <Game
           v-for="game in user.games"
@@ -26,7 +27,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import draggable from 'vuedraggable';
+const draggable = require('vuedraggable');
 import internalContext from '../../api/intern/apiContext';
 import Game from './Game.vue';
 
@@ -81,7 +82,7 @@ export default Vue.extend({
 }
 
 .user-items {
-    padding: 10px;
-    min-height: 300px;
+  padding: 10px;
+  min-height: 300px;
 }
 </style>
