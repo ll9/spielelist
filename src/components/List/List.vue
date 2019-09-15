@@ -4,7 +4,6 @@
       <draggable
         :list="games"
         class="list-group grid-container"
-        ghost-class="ghost"
         :group="{name: 'userpanel', pull: 'clone', put: false}"
         :sort="false"
       >
@@ -66,10 +65,14 @@ export default Vue.extend({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   min-height: 329px;
+}
+
+.cover {
+  cursor: move;
 }
 </style>

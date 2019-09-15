@@ -11,7 +11,7 @@
         ghost-class="ghost"
         :group="{name: 'userpanel', pull: false }"
         :sort="false"
-        @add="onAddDraggable($event, user.games)"
+        @add="addDraggable($event, user.games)"
       >
         <Game
           v-for="game in user.games"
@@ -74,7 +74,7 @@ export default Vue.extend({
         games.splice(index, 1);
       }
     },
-    onAddDraggable(evt: any, destination: any[]) {
+    addDraggable(evt: any, destination: any[]) {
       const game = destination[evt.newIndex];
       const count = destination.filter((g: any) => g.id === game.id).length;
       if (count > 1) {
