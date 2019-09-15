@@ -65,14 +65,14 @@ export default Vue.extend({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<style scoped lang="scss">
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   min-height: 329px;
-}
 
-.cover {
-  cursor: move;
+  ::v-deep .cover {
+    cursor: move;
+  }
 }
 </style>
