@@ -70,5 +70,6 @@ export default Vue.extend({
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  min-height: 329px;
 }
 </style>
