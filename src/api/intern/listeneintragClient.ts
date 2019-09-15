@@ -1,7 +1,7 @@
 import client from './baseClient';
 import { AxiosResponse } from 'axios';
 
-const resource = 'listeneintraege';
+const resource = 'listentry';
 
 export default {
   async add(id: number): Promise<AxiosResponse<any>> {
