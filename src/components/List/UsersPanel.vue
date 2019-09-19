@@ -11,13 +11,13 @@
         ghost-class="ghost"
         :group="{name: 'userpanel', pull: false }"
         :sort="false"
-        @add="addDraggable($event, user.games)"
+        @add="addDraggable($event, user)"
       >
         <Game
           v-for="game in user.games"
           :key="game.id"
           :game="game"
-          @remove-game="removeGame(user.games, $event)"
+          @remove-game="removeGame(user, $event)"
           class="user-item"
         />
       </draggable>
@@ -31,6 +31,7 @@
 <script lang="ts">
 import Vue from 'vue';
 const draggable = require('vuedraggable');
+import externalContent from '../../api/extern/apiContext';
 import internalContext from '../../api/intern/apiContext';
 import Game from './Game.vue';
 
@@ -60,6 +61,14 @@ export default Vue.extend({
     async loadUsers() {
       const res = await internalContext.users.list();
       this.users = res.data.map((d: any) => ({ ...d, games: [] }));
+      this.users = await Promise.all(res.data.map(async (user: any) => {
+        let games = [];
+        if (user.userEntries.length > 0) {
+          const usergamesRes = await externalContent.games.listByIds(user.userEntries.map((ue: any) => ue.listEntryId));
+          games = usergamesRes.data;
+        }
+        return {...user, games};
+      }));
     },
     async removeUser(id: any) {
       const index = this.users.findIndex((u) => u.id === id);
@@ -68,17 +77,21 @@ export default Vue.extend({
         this.users.splice(index, 1);
       }
     },
-    async removeGame(games: any[], id: number) {
-      const index = games.findIndex((g) => g.id === id);
+    async removeGame(user: any, id: number) {
+      const index = user.games.findIndex((g: any) => g.id === id);
       if (index !== -1) {
-        games.splice(index, 1);
+        const gameId = user.games[index].id;
+        user.games.splice(index, 1);
+        await internalContext.userEntries.remove(user.id, gameId);
       }
     },
-    addDraggable(evt: any, destination: any[]) {
-      const game = destination[evt.newIndex];
-      const count = destination.filter((g: any) => g.id === game.id).length;
+    async addDraggable(evt: any, user: any) {
+      const game = user.games[evt.newIndex];
+      const count = user.games.filter((g: any) => g.id === game.id).length;
       if (count > 1) {
-        destination.splice(evt.index, 1);
+        user.games.splice(evt.index, 1);
+      } else {
+        await internalContext.userEntries.add(user.id, game.id);
       }
     },
   },
@@ -118,7 +131,7 @@ export default Vue.extend({
   min-height: 300px;
 }
 
-.list-group{
+.list-group {
   border: 3px dashed black;
   margin: 20px;
 }
