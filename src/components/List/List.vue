@@ -43,7 +43,7 @@ export default Vue.extend({
     async loadData(val: string) {
       const listRes = await internalContext.listEintraege.list();
       const gameRes = await externalContext.games.listByIds(
-        listRes.data.map((e: any) => e.spielId),
+        listRes.data.map((e: any) => e.igdbId),
       );
 
       this.games = gameRes.data;

@@ -5,7 +5,7 @@ const resource = 'listentries';
 
 export default {
   async add(id: number): Promise<AxiosResponse<any>> {
-    return await client.post(`/${resource}`, {spielId: id});
+    return await client.post(`/${resource}`, {igdbId: id});
   },
   async list(): Promise<AxiosResponse<any>> {
     return await client.get(`/${resource}`);
