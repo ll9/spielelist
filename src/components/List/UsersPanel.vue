@@ -10,8 +10,8 @@
         class="list-group user-items"
         ghost-class="ghost"
         :group="{name: 'userpanel', pull: false }"
-        :sort="false"
         @add="addDraggable($event, user)"
+        @sort="onSort($event, user)"
       >
         <Game
           v-for="game in user.games"
@@ -29,11 +29,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-const draggable = require('vuedraggable');
-import externalContent from '../../api/extern/apiContext';
-import internalContext from '../../api/intern/apiContext';
-import Game from './Game.vue';
+import Vue from "vue";
+const draggable = require("vuedraggable");
+import externalContent from "../../api/extern/apiContext";
+import internalContext from "../../api/intern/apiContext";
+import Game from "./Game.vue";
 
 export default Vue.extend({
   data: () => {
@@ -41,10 +41,10 @@ export default Vue.extend({
       users: [
         {
           id: 1,
-          name: 'Hans',
-          games: [],
-        },
-      ],
+          name: "Hans",
+          games: []
+        }
+      ]
     };
   },
   mounted() {
@@ -52,7 +52,7 @@ export default Vue.extend({
   },
   methods: {
     async addUser() {
-      const user = prompt('Username');
+      const user = prompt("Username");
       if (user) {
         const res = await internalContext.users.add(user);
         this.users.push({ id: res.data.id, name: res.data.name, games: [] });
@@ -61,17 +61,21 @@ export default Vue.extend({
     async loadUsers() {
       const res = await internalContext.users.list();
       this.users = res.data.map((d: any) => ({ ...d, games: [] }));
-      this.users = await Promise.all(res.data.map(async (user: any) => {
-        let games = [];
-        if (user.userEntries.length > 0) {
-          const usergamesRes = await externalContent.games.listByIds(user.userEntries.map((ue: any) => ue.listEntryId));
-          games = usergamesRes.data;
-        }
-        return {...user, games};
-      }));
+      this.users = await Promise.all(
+        res.data.map(async (user: any) => {
+          let games = [];
+          if (user.userEntries.length > 0) {
+            const usergamesRes = await externalContent.games.listByIds(
+              user.userEntries.map((ue: any) => ue.listEntryId)
+            );
+            games = usergamesRes.data;
+          }
+          return { ...user, games };
+        })
+      );
     },
     async removeUser(id: any) {
-      const index = this.users.findIndex((u) => u.id === id);
+      const index = this.users.findIndex(u => u.id === id);
       if (index !== -1) {
         await internalContext.users.remove(id);
         this.users.splice(index, 1);
@@ -94,11 +98,19 @@ export default Vue.extend({
         await internalContext.userEntries.add(user.id, game.id);
       }
     },
+    async onSort(evt: any, user: any) {
+      console.log(evt.oldIndex)
+      console.log(evt.newIndex)
+      if (evt.oldIndex !== evt.newIndex) {
+        const game = user.games[evt.newIndex];
+        await internalContext.userEntries.updateIndex(user.id, game.id, evt.newIndex);
+      }
+    }
   },
   components: {
     draggable,
-    Game,
-  },
+    Game
+  }
 });
 </script>
 
