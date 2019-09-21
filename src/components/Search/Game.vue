@@ -3,7 +3,6 @@
     <a :href="game.url" target="_blank">
       <img
         class="cover"
-        v-if="game.cover"
         :alt="game.name + ' bild'"
         :src="game.cover.url.replace('t_thumb', 't_cover_small_2x')"
       />

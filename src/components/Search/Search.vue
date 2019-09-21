@@ -22,17 +22,26 @@ export default Vue.extend({
     };
   },
   mounted() {
-    const search = (this.$route.query.search || 'mario') as string;
+    const search = this.$route.query.search as string;
 
-    this.loadData(search);
+    if (search) {
+      this.loadSearch(search);
+      this.searchVal = search;
+    } else {
+      this.loadRecent();
+    }
   },
   methods: {
     submit() {
       this.$router.push({ query: { search: this.searchVal } });
-      this.loadData(this.searchVal);
+      this.loadSearch(this.searchVal);
     },
-    async loadData(val: string) {
+    async loadSearch(val: string) {
       const res = await Context.games.search(val);
+      this.games = res.data;
+    },
+    async loadRecent() {
+      const res = await Context.games.recentReleases();
       this.games = res.data;
     },
   },
