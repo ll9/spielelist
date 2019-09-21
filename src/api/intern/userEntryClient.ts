@@ -5,8 +5,8 @@ const resource = 'users';
 const subResource = 'listentries';
 
 export default {
-    async add(userId: number, igdbId: number): Promise<AxiosResponse<any>> {
-        return await client.post(`/${resource}/${userId}/${subResource}`, { igdbId });
+    async add(userId: number, igdbId: number, index: number): Promise<AxiosResponse<any>> {
+        return await client.post(`/${resource}/${userId}/${subResource}`, { igdbId, index });
     },
     async remove(userId: number, igdbId: number): Promise<AxiosResponse<any>> {
         return await client.delete(`/${resource}/${userId}/${subResource}/${igdbId}`);

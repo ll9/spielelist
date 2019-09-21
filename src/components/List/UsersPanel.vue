@@ -95,12 +95,10 @@ export default Vue.extend({
       if (count > 1) {
         user.games.splice(evt.index, 1);
       } else {
-        await internalContext.userEntries.add(user.id, game.id);
+        await internalContext.userEntries.add(user.id, game.id, evt.newIndex);
       }
     },
     async onSort(evt: any, user: any) {
-      console.log(evt.oldIndex)
-      console.log(evt.newIndex)
       if (evt.oldIndex !== evt.newIndex) {
         const game = user.games[evt.newIndex];
         await internalContext.userEntries.updateIndex(user.id, game.id, evt.newIndex);
