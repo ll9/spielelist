@@ -100,7 +100,7 @@ export default Vue.extend({
       const game = user.games[evt.newIndex];
       const count = user.games.filter((g: any) => g.id === game.id).length;
       if (count > 1) {
-        user.games.splice(evt.index, 1);
+        user.games.splice(evt.newIndex, 1);
       } else {
         await internalContext.userEntries.add(user.id, game.id, evt.newIndex);
       }
