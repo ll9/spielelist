@@ -123,7 +123,7 @@ export default Vue.extend({
 <style scoped lang="scss">
 .user-grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
 
   > div {
     border: 1px solid black;
