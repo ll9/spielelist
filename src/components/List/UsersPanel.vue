@@ -123,14 +123,13 @@ export default Vue.extend({
 <style scoped lang="scss">
 .user-grid-container {
   display: grid;
+  padding: 10px;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
 
   > div {
     border: 1px solid black;
 
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    border-radius: 5px;
 
     &:hover {
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);

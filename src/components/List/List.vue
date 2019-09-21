@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="mb-3">
       <draggable
         :list="games"
         class="list-group grid-container"
