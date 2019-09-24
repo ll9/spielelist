@@ -16,7 +16,7 @@
         />
       </draggable>
     </div>
-    <UsersPanel />
+    <UsersPanel ref="userPanel" />
   </div>
 </template>
 
@@ -59,9 +59,13 @@ export default Vue.extend({
       if (index !== -1) {
         this.games.splice(index, 1);
       }
+
+      (this.$refs.userPanel as any).removeGameFromUsers(id);
       await internalContext.listEintraege.remove(id);
     },
     async archiveGame(id: number) {
+      (this.$refs.userPanel as any).removeGameFromUsers(id);
+
       await internalContext.archive.add(id);
       await this.removeGame(id);
     },

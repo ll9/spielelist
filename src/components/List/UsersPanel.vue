@@ -99,6 +99,14 @@ export default Vue.extend({
         await internalContext.userEntries.remove(user.id, gameId);
       }
     },
+    removeGameFromUsers(id: number) {
+      for (const user of this.users) {
+        const index = user.games.findIndex((g: any) => g.id === id);
+        if (index !== -1) {
+          user.games.splice(index, 1);
+        }
+      }
+    },
     async archiveGame(user: any, id: number) {
       await internalContext.archive.add(id);
       await this.removeGame(user, id);
