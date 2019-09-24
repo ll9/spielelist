@@ -8,7 +8,7 @@
         <router-link to="/liste" class="pure-menu-link" :class="{ active: $route.path=='/liste'}">Liste</router-link>
       </li>
       <li class="pure-menu-item">
-        <router-link to="/archiv" class="pure-menu-link" :class="{ active: $route.path=='/archiv'}">Archiv</router-link>
+        <router-link to="/archive" class="pure-menu-link" :class="{ active: $route.path=='/archiv'}">Archiv</router-link>
       </li>
     </ul>
   </div>
