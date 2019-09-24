@@ -62,10 +62,8 @@ export default Vue.extend({
       await internalContext.listEintraege.remove(id);
     },
     async archiveGame(id: number) {
-      const index = this.games.findIndex((g) => g.id === id);
-      this.games.splice(index, 1);
-
       await internalContext.archive.add(id);
+      await this.removeGame(id);
     },
   },
   components: {

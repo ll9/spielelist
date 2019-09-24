@@ -100,10 +100,8 @@ export default Vue.extend({
       }
     },
     async archiveGame(user: any, id: number) {
-      const index = user.games.findIndex((g: any) => g.id === id);
-      user.games.splice(index, 1);
-
       await internalContext.archive.add(id);
+      await this.removeGame(user, id);
     },
     async addDraggable(evt: any, user: any) {
       const game = user.games[evt.newIndex];
