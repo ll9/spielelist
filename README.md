@@ -2,11 +2,11 @@
 
 ## Project setup
 
-Copy `.env.development.local.dummy` to `.env.development.local` and enter your credentials there.
+Copy `.env.dummy` to `.env` and enter your credentials there.
 
 ```
 npm install
-npm i local-cors-proxy
+npm i -g local-cors-proxy
 ```
 
 ## Proxy
