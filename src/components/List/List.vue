@@ -11,6 +11,7 @@
           v-for="game in games"
           :key="game.id"
           :game="game"
+          :archivable="true"
           @remove-game="removeGame"
           @archive-game="archiveGame"
         />
