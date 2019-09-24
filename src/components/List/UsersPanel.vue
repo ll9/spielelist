@@ -18,6 +18,7 @@
           :key="game.id"
           :game="game"
           @remove-game="removeGame(user, $event)"
+          @archive-game="archiveGame(user, $event)"
           class="user-item"
         />
       </draggable>
@@ -71,7 +72,9 @@ export default Vue.extend({
 
             // insert in correct order
             for (const entry of user.userEntries) {
-              const game = usergamesRes.data.find((g: any) => g.id === entry.listEntryId);
+              const game = usergamesRes.data.find(
+                (g: any) => g.id === entry.listEntryId,
+              );
               if (game) {
                 games.push(game);
               }
@@ -96,6 +99,12 @@ export default Vue.extend({
         await internalContext.userEntries.remove(user.id, gameId);
       }
     },
+    async archiveGame(user: any, id: number) {
+      const index = user.games.findIndex((g: any) => g.id === id);
+      user.games.splice(index, 1);
+
+      await internalContext.archive.add(id);
+    },
     async addDraggable(evt: any, user: any) {
       const game = user.games[evt.newIndex];
       const count = user.games.filter((g: any) => g.id === game.id).length;
@@ -108,7 +117,11 @@ export default Vue.extend({
     async onSort(evt: any, user: any) {
       if (evt.to === evt.from) {
         const game = user.games[evt.newIndex];
-        await internalContext.userEntries.updateIndex(user.id, game.id, evt.newIndex);
+        await internalContext.userEntries.updateIndex(
+          user.id,
+          game.id,
+          evt.newIndex,
+        );
       }
     },
   },
@@ -124,7 +137,10 @@ export default Vue.extend({
 .user-grid-container {
   display: grid;
   padding: 10px;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(
+      0,
+      1fr
+    );
 
   > div {
     border: 1px solid black;

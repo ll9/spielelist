@@ -7,7 +7,13 @@
         :group="{name: 'userpanel', pull: 'clone', put: false}"
         :sort="false"
       >
-        <Game v-for="game in games" :key="game.id" :game="game" @remove-game="removeGame" />
+        <Game
+          v-for="game in games"
+          :key="game.id"
+          :game="game"
+          @remove-game="removeGame"
+          @archive-game="archiveGame"
+        />
       </draggable>
     </div>
     <UsersPanel />
@@ -54,6 +60,12 @@ export default Vue.extend({
         this.games.splice(index, 1);
       }
       await internalContext.listEintraege.remove(id);
+    },
+    async archiveGame(id: number) {
+      const index = this.games.findIndex((g) => g.id === id);
+      this.games.splice(index, 1);
+
+      await internalContext.archive.add(id);
     },
   },
   components: {

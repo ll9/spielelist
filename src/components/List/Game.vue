@@ -12,7 +12,7 @@
       <button @click="removeFromList(game.id)">
         <i class="fa fa-minus-circle"></i>
       </button>
-      <button>
+      <button @click="moveToArchive(game.id)">
         <i class="fa fa-folder-open"></i>
       </button>
     </div>
@@ -27,6 +27,9 @@ export default Vue.extend({
   methods: {
     async removeFromList(id: number) {
       this.$emit('remove-game', id);
+    },
+    async moveToArchive(id: number) {
+      this.$emit('archive-game', id);
     },
   },
 });
