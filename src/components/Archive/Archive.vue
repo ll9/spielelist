@@ -4,11 +4,10 @@
         <Game
           v-for="game in games"
           :key="game.id"
-          :game="game"
-          @remove-game="removeGame"
+          :game="game.igdb"
+          @remove-game="removeGame(game.id)"
         />
     </div>
-    <UsersPanel />
   </div>
 </template>
 
@@ -42,7 +41,15 @@ export default Vue.extend({
         archiveRes.data.map((e: any) => e.igdbId),
       );
 
-      this.games = gameRes.data;
+      const games = archiveRes.data;
+      for (const game of games) {
+        const igdb = gameRes.data.find((e: any) => e.id === game.igdbId);
+        if (igdb) {
+          game.igdb = igdb;
+        }
+      }
+
+      this.games = games;
     },
     async removeGame(id: number) {
       const index = this.games.findIndex((g) => g.id === id);
