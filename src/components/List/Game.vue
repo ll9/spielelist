@@ -12,6 +12,9 @@
       <button @click="removeFromList(game.id)">
         <i class="fa fa-minus-circle"></i>
       </button>
+      <button>
+        <i class="fa fa-folder-open"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -42,12 +45,12 @@ export default Vue.extend({
 }
 
 .action-menu button {
+  display: block;
   border: none;
   background: transparent;
   font-size: 1.75rem;
-  transition: .75s;
+  transition: 0.75s;
   padding: 0;
   outline: none;
-
 }
 </style>
