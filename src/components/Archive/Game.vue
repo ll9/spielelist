@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="game-container">
     <a :href="game.url" target="_blank">
       <img
@@ -13,6 +14,12 @@
         <i class="fa fa-minus-circle"></i>
       </button>
     </div>
+    <br>
+  </div>
+    <p class="mb-3">
+      Archivert:
+      {{new Date(archived).toLocaleDateString()}}
+    </p>
   </div>
 </template>
 
@@ -20,7 +27,7 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  props: ['game'],
+  props: ['game', 'archived'],
   methods: {
     async removeFromList(id: number) {
       this.$emit('remove-game', id);
@@ -32,7 +39,7 @@ export default Vue.extend({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .game-container {
-  margin: 10px;
+  margin: 5px;
   display: flex;
   justify-content: center;
 }

@@ -5,6 +5,7 @@
           v-for="game in games"
           :key="game.id"
           :game="game.igdb"
+          :archived="game.archived"
           @remove-game="removeGame(game.id)"
         />
     </div>
