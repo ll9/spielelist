@@ -1,5 +1,9 @@
 # spielelist
 
+## Docs
+
+/docs
+
 ## Project setup
 
 Copy `.env.dummy` to `.env` and enter your credentials there.
