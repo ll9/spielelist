@@ -26,7 +26,8 @@ export default {
   async listByIds(ids: number[]): Promise<AxiosResponse<any>> {
     return await client.post(`/${resource}`,
       `fields name, popularity, cover.url, url, first_release_date;
-      where id = (${ids.join(',')});`,
+      where id = (${ids.join(',')});
+      limit 50;`,
       { headers: { 'content-type': 'text/plain' } });
   },
 };
