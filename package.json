@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+  	"concurrently": "concurrently --kill-others \"npm run proxy\" \"npm run serve\"",
     "proxy": "lcp --proxyUrl https://api-v3.igdb.com",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -21,7 +22,8 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-typescript": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-service": "^4.2.2",
+    "concurrently": "^5.1.0",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "typescript": "^3.4.3",
