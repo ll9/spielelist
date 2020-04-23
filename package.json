@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  	"concurrently": "concurrently --kill-others \"npm run proxy\" \"npm run serve\"",
+    "concurrently": "concurrently --kill-others \"npm run proxy\" \"npm run serve\"",
     "proxy": "lcp --proxyUrl https://api-v3.igdb.com",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -17,6 +17,7 @@
     "vue-property-decorator": "^8.1.0",
     "vue-router": "^3.0.3",
     "vuedraggable": "^2.23.0",
+    "vuejs-paginate": "^2.1.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
