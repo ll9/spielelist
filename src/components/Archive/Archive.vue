@@ -9,7 +9,7 @@
           @remove-game="removeGame(game.id)"
         />
         <paginate
-          :page-count="20"
+          :page-count="totalPages"
           :clickHandler="handlePageChange"
           prev-text="Zurück"
           next-text="Weiter"
@@ -32,27 +32,34 @@ export default Vue.extend({
   data: () => {
     return {
       games: [] as any[],
+      totalCount: 0,
+      pageSize: 5
     };
+  },
+  computed: {
+    totalPages(): number {
+      return this.totalCount / this.pageSize;
+    }
   },
   mounted() {
     this.loadData();
   },
   methods: {
     async loadData(page = 1) {
-      const archiveRes = await internalContext.archive.list(page);
+      const {data, totalCount} = await internalContext.archive.list(page, this.pageSize);
       const gameRes = await externalContext.games.listByIds(
-        archiveRes.data.map((e: any) => e.igdbId),
+        data.map((e: any) => e.igdbId),
       );
 
-      const games = archiveRes.data;
-      for (const game of games) {
+      for (const game of data) {
         const igdb = gameRes.find((e: any) => e.id === game.igdbId);
         if (igdb) {
           game.igdb = igdb;
         }
       }
 
-      this.games = games;
+      this.totalCount = totalCount
+      this.games = data;
     },
     async removeGame(id: number) {
       const index = this.games.findIndex((g) => g.id === id);

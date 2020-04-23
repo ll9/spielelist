@@ -53,7 +53,7 @@ export default Vue.extend({
         listRes.data.map((e: any) => e.igdbId),
       );
 
-      this.games = gameRes.data;
+      this.games = gameRes;
     },
     async removeGame(id: number) {
       const index = this.games.findIndex((g) => g.id === id);

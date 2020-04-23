@@ -72,7 +72,7 @@ export default Vue.extend({
 
             // insert in correct order
             for (const entry of user.userEntries) {
-              const game = usergamesRes.data.find(
+              const game = usergamesRes.find(
                 (g: any) => g.id === entry.listEntryId,
               );
               if (game) {
