@@ -8,12 +8,21 @@
           :archived="game.archived"
           @remove-game="removeGame(game.id)"
         />
+        <paginate
+          :page-count="20"
+          :clickHandler="handlePageChange"
+          prev-text="Zurück"
+          next-text="Weiter"
+          container-class="pagination">
+        </paginate>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+// @ts-ignore
+import Paginate from 'vuejs-paginate'
 
 import Game from './Game.vue';
 import externalContext from '../../api/extern/apiContext';
@@ -22,29 +31,22 @@ import internalContext from '../../api/intern/apiContext';
 export default Vue.extend({
   data: () => {
     return {
-      searchVal: '',
       games: [] as any[],
     };
   },
   mounted() {
-    const search = (this.$route.query.search || 'mario') as string;
-
-    this.loadData(search);
+    this.loadData();
   },
   methods: {
-    submit() {
-      this.$router.push({ query: { search: this.searchVal } });
-      this.loadData(this.searchVal);
-    },
-    async loadData(val: string) {
-      const archiveRes = await internalContext.archive.list();
+    async loadData(page = 1) {
+      const archiveRes = await internalContext.archive.list(page);
       const gameRes = await externalContext.games.listByIds(
         archiveRes.data.map((e: any) => e.igdbId),
       );
 
       const games = archiveRes.data;
       for (const game of games) {
-        const igdb = gameRes.data.find((e: any) => e.id === game.igdbId);
+        const igdb = gameRes.find((e: any) => e.id === game.igdbId);
         if (igdb) {
           game.igdb = igdb;
         }
@@ -59,9 +61,13 @@ export default Vue.extend({
       }
       await internalContext.archive.remove(id);
     },
+    handlePageChange(page: number) {
+      this.loadData(page);
+    }
   },
   components: {
     Game,
+    Paginate
   },
 });
 </script>
