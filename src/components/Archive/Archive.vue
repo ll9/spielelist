@@ -80,5 +80,28 @@ export default Vue.extend({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+    font-size: 0;
+
+  li {
+    font-size: 16px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid black;
+    min-width: 20px;
+    border-radius: 2px;
+
+    a:active, a:focus {
+      outline: 0;
+      border: none;
+      outline-style: none;
+      -moz-outline-style: none;
+    }
+  }
+}
 </style>
