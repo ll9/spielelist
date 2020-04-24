@@ -39,7 +39,7 @@ export default Vue.extend({
   },
   computed: {
     totalPages(): number {
-      return this.totalCount / this.pageSize
+      return Math.ceil(this.totalCount / this.pageSize)
     }
   },
   mounted() {
@@ -89,12 +89,30 @@ export default Vue.extend({
   font-size: 0;
 
   li {
+    position: relative;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    border: 1px solid #dee2e6;
+
     font-size: 16px;
     display: inline-block;
-    padding: 10px;
-    border: 1px solid black;
-    min-width: 20px;
-    border-radius: 2px;
+
+    &.disabled {
+      color: #6c757d;
+      pointer-events: none;
+      cursor: not-allowed;
+      background-color: #fff;
+      border-color: #dee2e6;
+    }
+
+    &.active {
+      z-index: 1;
+      color: #fff;
+      background-color: #007bff;
+      border-color: #007bff;
+    }
 
     a:active,
     a:focus {
