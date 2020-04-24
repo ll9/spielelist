@@ -1,24 +1,24 @@
 <template>
   <div id="app">
     <Menu />
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Menu from './views/Menu.vue';
+import Vue from "vue"
+import Menu from "./views/Menu.vue"
 
 export default Vue.extend({
   components: {
-    Menu,
-  },
-});
+    Menu
+  }
+})
 </script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
