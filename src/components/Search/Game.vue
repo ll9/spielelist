@@ -16,19 +16,20 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Context from '../../api/intern/apiContext';
+import Vue from "vue"
+import Context from "../../api/intern/apiContext"
 
 export default Vue.extend({
-  props: ['game'],
+  props: ["game"],
   methods: {
     addToList(id: number) {
-      Context.listEintraege.add(id)
-        .then((res) => alert('Wurde erfolgreich zur liste hinzugefügt'))
-        .catch((err) => alert(`Fehler: ${JSON.stringify(err.response.data)}`));
-    },
-  },
-});
+      Context.listEintraege
+        .add(id)
+        .then(res => alert("Wurde erfolgreich zur liste hinzugefügt"))
+        .catch(err => alert(`Fehler: ${JSON.stringify(err.response.data)}`))
+    }
+  }
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -47,9 +48,8 @@ export default Vue.extend({
   border: none;
   background: transparent;
   font-size: 1.75rem;
-  transition: .75s;
+  transition: 0.75s;
   padding: 0;
   outline: none;
-
 }
 </style>
