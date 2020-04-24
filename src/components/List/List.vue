@@ -4,7 +4,7 @@
       <draggable
         :list="games"
         class="list-group grid-container"
-        :group="{name: 'userpanel', pull: 'clone', put: false}"
+        :group="{ name: 'userpanel', pull: 'clone', put: false }"
         :sort="false"
       >
         <Game
@@ -22,61 +22,59 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-const draggable = require('vuedraggable');
+import Vue from "vue"
+const draggable = require("vuedraggable")
 
-import Game from './Game.vue';
-import UsersPanel from './UsersPanel.vue';
-import externalContext from '../../api/extern/apiContext';
-import internalContext from '../../api/intern/apiContext';
+import Game from "./Game.vue"
+import UsersPanel from "./UsersPanel.vue"
+import externalContext from "../../api/extern/apiContext"
+import internalContext from "../../api/intern/apiContext"
 
 export default Vue.extend({
   data: () => {
     return {
-      searchVal: '',
-      games: [] as any[],
-    };
+      searchVal: "",
+      games: [] as any[]
+    }
   },
   mounted() {
-    const search = (this.$route.query.search || 'mario') as string;
+    const search = (this.$route.query.search || "mario") as string
 
-    this.loadData(search);
+    this.loadData(search)
   },
   methods: {
     submit() {
-      this.$router.push({ query: { search: this.searchVal } });
-      this.loadData(this.searchVal);
+      this.$router.push({ query: { search: this.searchVal } })
+      this.loadData(this.searchVal)
     },
     async loadData(val: string) {
-      const listRes = await internalContext.listEintraege.list();
-      const gameRes = await externalContext.games.listByIds(
-        listRes.data.map((e: any) => e.igdbId),
-      );
+      const listRes = await internalContext.listEintraege.list()
+      const gameRes = await externalContext.games.listByIds(listRes.data.map((e: any) => e.igdbId))
 
-      this.games = gameRes;
+      this.games = gameRes
     },
     async removeGame(id: number) {
-      const index = this.games.findIndex((g) => g.id === id);
+      const index = this.games.findIndex(g => g.id === id)
       if (index !== -1) {
-        this.games.splice(index, 1);
+        this.games.splice(index, 1)
       }
 
-      (this.$refs.userPanel as any).removeGameFromUsers(id);
-      await internalContext.listEintraege.remove(id);
+      ;(this.$refs.userPanel as any).removeGameFromUsers(id)
+      await internalContext.listEintraege.remove(id)
     },
     async archiveGame(id: number) {
-      (this.$refs.userPanel as any).removeGameFromUsers(id);
+      ;(this.$refs.userPanel as any).removeGameFromUsers(id)
 
-      await internalContext.archive.add(id);
-      await this.removeGame(id);
-    },
+      await internalContext.archive.add(id)
+      await this.removeGame(id)
+    }
   },
   components: {
     draggable,
     Game,
-    UsersPanel,
-  },
-});
+    UsersPanel
+  }
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -20,19 +20,19 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue"
 
 export default Vue.extend({
-  props: ['game', 'archivable'],
+  props: ["game", "archivable"],
   methods: {
     async removeFromList(id: number) {
-      this.$emit('remove-game', id);
+      this.$emit("remove-game", id)
     },
     async moveToArchive(id: number) {
-      this.$emit('archive-game', id);
-    },
-  },
-});
+      this.$emit("archive-game", id)
+    }
+  }
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
