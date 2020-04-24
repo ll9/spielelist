@@ -33,7 +33,7 @@ export default Vue.extend({
     return {
       games: [] as any[],
       totalCount: 0,
-      pageSize: 5
+      pageSize: 10
     };
   },
   computed: {
@@ -69,6 +69,7 @@ export default Vue.extend({
       await internalContext.archive.remove(id);
     },
     handlePageChange(page: number) {
+      window.scrollTo(0,0);
       this.loadData(page);
     }
   },
