@@ -48,10 +48,10 @@ export default Vue.extend({
   methods: {
     async loadData(page = 1) {
       const { data, totalCount } = await internalContext.archive.list(page, this.pageSize)
-      const gameRes = await externalContext.games.listByIds(data.map((e: any) => e.igdbId))
+      const igdbData = await externalContext.games.listByIds(data.map((e: any) => e.igdbId))
 
       for (const game of data) {
-        const igdb = gameRes.find((e: any) => e.id === game.igdbId)
+        const igdb = igdbData.find((e: any) => e.id === game.igdbId)
         if (igdb) {
           game.igdb = igdb
         }
