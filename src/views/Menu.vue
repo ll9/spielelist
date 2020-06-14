@@ -10,6 +10,9 @@
       <li class="pure-menu-item">
         <router-link to="/archive" class="pure-menu-link" :class="{ active: $route.path=='/archiv'}">Archiv</router-link>
       </li>
+      <li class="pure-menu-item">
+        <router-link to="/timeline" class="pure-menu-link" :class="{ active: $route.path=='/timeline'}">Zeitstrahl</router-link>
+      </li>
     </ul>
   </div>
 </template>

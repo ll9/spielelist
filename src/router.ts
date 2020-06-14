@@ -3,6 +3,7 @@ import Router from "vue-router"
 import Search from "./components/Search/Search.vue"
 import List from "./components/List/List.vue"
 import Archive from "./components/Archive/Archive.vue"
+import TimeLine from "./components/TimeLine/TimeLine.vue"
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: "/archive",
       name: "archive",
       component: Archive
+    },
+    {
+      path: "/timeline",
+      name: "timeline",
+      component: TimeLine
     }
   ]
 })
