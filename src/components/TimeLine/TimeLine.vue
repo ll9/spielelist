@@ -1,5 +1,12 @@
 <template>
   <v-app>
+    <label style="margin-bottom: 30px"
+      ><span>Jahr: </span>
+      <select v-model="selectedYear" style="width: 100px" @change="loadData">
+        <option v-for="year in years" :key="year">{{ year }}</option>
+      </select>
+    </label>
+
     <v-timeline reverse>
       <v-timeline-item v-for="game in games" :key="game.id">
         <!-- <span slot="opposite">{{ new Date(game.archived).toLocaleDateString() }}</span> -->
@@ -22,7 +29,9 @@ export default Vue.extend({
   },
   data() {
     return {
-      games: [] as any[]
+      games: [] as any[],
+      years: [...new Array(new Date().getFullYear() - 2019 + 1)].map((v, i) => 2019 + i),
+      selectedYear: 2019
     }
   },
   mounted() {
@@ -30,7 +39,7 @@ export default Vue.extend({
   },
   methods: {
     async loadData(page = 1) {
-      const { data, totalCount } = await internalContext.archive.list(page)
+      const { data, totalCount } = await internalContext.archive.listByYear(this.selectedYear)
       const igdbData = await externalContext.games.listByIds(data.map((e: any) => e.igdbId))
 
       for (const game of data) {
@@ -40,7 +49,7 @@ export default Vue.extend({
         }
       }
 
-      this.games = data.reverse()
+      this.games = data
     }
   }
 })
