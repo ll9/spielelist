@@ -7,7 +7,6 @@ ssh -i %USERPROFILE%\.ssh\id_rsa pi@raspberrypi sudo systemctl stop spieleliste-
 ssh -i %USERPROFILE%\.ssh\id_rsa pi@raspberrypi sudo systemctl stop spieleliste-proxy.service
 
 
-cd spielelist
 CALL npm run build
 scp -r dist pi@raspberrypi:/home/pi/deployments/spieleliste-frontend
 
