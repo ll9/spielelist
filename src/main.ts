@@ -6,11 +6,14 @@ import store from "./store"
 import "./style.scss"
 import "./styles/typography.css"
 import "./styles/utils.scss"
+import vuetify from "./plugins/vuetify"
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
+  // @ts-ignore
+  vuetify,
   render: h => h(App)
 }).$mount("#app")
