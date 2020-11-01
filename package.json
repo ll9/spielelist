@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "concurrently": "concurrently --kill-others \"npm run proxy\" \"npm run serve\"",
-    "proxy": "lcp --proxyUrl https://api-v3.igdb.com"
+    "proxy": "lcp --proxyUrl https://api.igdb.com/v4 --port 60032"
   },
   "dependencies": {
     "axios": "^0.19.2",

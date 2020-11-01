@@ -7,7 +7,7 @@ export default {
   async search(val: string): Promise<AxiosResponse<any>> {
     return await client.post(
       `/${resource}`,
-      `fields name, popularity, cover.url, url, first_release_date;
+      `fields name, cover.url, url, first_release_date;
       search "${val}";`,
       { headers: { "content-type": "text/plain" } }
     )
@@ -19,7 +19,7 @@ export default {
     return await client.post(
       `/${resource}`,
       `
-      fields name, popularity, cover.url, url, first_release_date;
+      fields name, cover.url, url, first_release_date;
       where platforms = 130 & first_release_date > 1538129354 & first_release_date < ${timeStamp} & cover.url != null;
       sort first_release_date desc;
       limit 25;
@@ -34,7 +34,7 @@ export default {
 
     let res = await client.post(
       `/${resource}`,
-      `fields name, popularity, cover.url, url, first_release_date;
+      `fields name, cover.url, url, first_release_date;
       where id = (${ids.join(",")});
       limit 50;`,
       { headers: { "content-type": "text/plain" } }
