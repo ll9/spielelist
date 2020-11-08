@@ -31,7 +31,7 @@ export default Vue.extend({
     return {
       games: [] as any[],
       years: [...new Array(new Date().getFullYear() - 2019 + 1)].map((v, i) => 2019 + i),
-      selectedYear: 2019
+      selectedYear: new Date().getFullYear()
     }
   },
   mounted() {
