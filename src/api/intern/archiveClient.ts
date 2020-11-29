@@ -1,3 +1,4 @@
+import { ArchiveUpdateDto } from "./../../models/ArchiveUpdateDto"
 import client from "./baseClient"
 import { AxiosResponse } from "axios"
 
@@ -17,11 +18,17 @@ export default {
 
     return { data: res.data, totalCount }
   },
+
   async listByYear(year: number): Promise<any> {
     const res = await client.get(`/${resource}/year/${year}`)
     return { data: res.data }
   },
+
   async remove(id: number): Promise<AxiosResponse<any>> {
     return await client.delete(`/${resource}/${id}`)
+  },
+
+  update(id: number, dto: ArchiveUpdateDto): Promise<AxiosResponse<any>> {
+    return client.put(`${resource}/${id}`, dto)
   }
 }

@@ -7,6 +7,7 @@
         :game="game.igdb"
         :archived="game.archived"
         @remove-game="removeGame(game.id)"
+        @update-game="updateGame(game.id, $event)"
       />
       <paginate
         :page-count="totalPages"
@@ -28,6 +29,7 @@ import Paginate from "vuejs-paginate"
 import Game from "./Game.vue"
 import externalContext from "../../api/extern/apiContext"
 import internalContext from "../../api/intern/apiContext"
+import { ArchiveUpdateDto } from "@/models/ArchiveUpdateDto"
 
 export default Vue.extend({
   data: () => {
@@ -67,6 +69,17 @@ export default Vue.extend({
       }
       await internalContext.archive.remove(id)
     },
+
+    updateGame(id: number, dto: ArchiveUpdateDto) {
+      const index = this.games.findIndex(g => g.id === id)
+      if (index === -1) return
+
+      this.games[index].archived = dto.archived
+      internalContext.archive
+        .update(id, dto)
+        .catch(() => alert("Netzwerkfehler, Änderung konnte nicht gespeichert werden"))
+    },
+
     handlePageChange(page: number) {
       window.scrollTo(0, 0)
       this.loadData(page)

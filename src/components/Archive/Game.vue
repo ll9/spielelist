@@ -1,39 +1,61 @@
 <template>
-<div>
-  <div class="game-container">
-    <a :href="game.url" target="_blank">
-      <img
-        class="cover"
-        v-if="game.cover"
-        :alt="game.name + ' bild'"
-        :src="game.cover.url.replace('t_thumb', 't_cover_small_2x')"
-      />
-    </a>
-    <div class="action-menu ml-2">
-      <button @click="removeFromList(game.id)">
-        <i class="fa fa-minus-circle"></i>
-      </button>
+  <div>
+    <div class="game-container">
+      <a :href="game.url" target="_blank">
+        <img
+          class="cover"
+          v-if="game.cover"
+          :alt="game.name + ' bild'"
+          :src="game.cover.url.replace('t_thumb', 't_cover_small_2x')"
+        />
+      </a>
+      <div class="action-menu ml-2">
+        <button @click="removeFromList(game.id)">
+          <i class="fa fa-minus-circle"></i>
+        </button>
+      </div>
+      <br />
     </div>
-    <br>
-  </div>
     <p class="mb-3">
       Archivert:
-      {{new Date(archived).toLocaleDateString()}}
+      <span @click="updateDate" style="cursor: pointer;">{{
+        new Date(archived).toLocaleDateString()
+      }}</span>
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { ArchiveUpdateDto } from "@/models/ArchiveUpdateDto"
+import Vue from "vue"
+import internalContext from "../../api/intern/apiContext"
 
 export default Vue.extend({
-  props: ['game', 'archived'],
+  props: ["game", "archived"],
   methods: {
     async removeFromList(id: number) {
-      this.$emit('remove-game', id);
+      this.$emit("remove-game", id)
     },
-  },
-});
+    updateDate() {
+      // Hack to get local date without timezone issues
+      let d = new Date(this.archived)
+      d = new Date(d.getTime() - d.getTimezoneOffset() * 60000)
+      let yyyymmdd = d.toISOString().slice(0, 10)
+
+      let result = prompt("Datum aktualisieren", yyyymmdd)
+      if (!result) return
+
+      const date = new Date(result)
+      let isValidDate = !isNaN(date.getTime())
+      if (!isValidDate) {
+        alert("Datum ungültig")
+        return
+      }
+
+      this.$emit("update-game", { archived: date } as ArchiveUpdateDto)
+    }
+  }
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
